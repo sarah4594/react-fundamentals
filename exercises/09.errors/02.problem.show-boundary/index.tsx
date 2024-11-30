@@ -1,9 +1,14 @@
 import { createRoot } from 'react-dom/client'
 // 🐨 bring in useErrorBoundary from react-error-boundary
-import { ErrorBoundary, type FallbackProps } from 'react-error-boundary'
+import {
+	ErrorBoundary,
+	type FallbackProps,
+	useErrorBoundary,
+} from 'react-error-boundary'
 
 function OnboardingForm() {
 	// 🐨 call useErrorBoundary here and get the showBoundary function
+	const { showBoundary } = useErrorBoundary()
 	return (
 		<form
 			action="api/onboarding"
@@ -11,12 +16,16 @@ function OnboardingForm() {
 			encType="multipart/form-data"
 			onSubmit={event => {
 				// 🐨 wrap all of this in a try/catch block
-				// 🐨 call showBoundary with the error in the catch block
-				event.preventDefault()
-				const formData = new FormData(event.currentTarget)
-				console.log(Object.fromEntries(formData))
-				const accountType = formData.get('accounType') as string
-				console.log(accountType.toUpperCase())
+				try {
+					// 🐨 call showBoundary with the error in the catch block
+					event.preventDefault()
+					const formData = new FormData(event.currentTarget)
+					console.log(Object.fromEntries(formData))
+					const accountType = formData.get('accounType') as string
+					console.log(accountType.toUpperCase())
+				} catch (error) {
+					showBoundary(error)
+				}
 			}}
 		>
 			<input type="hidden" name="orgId" value="123" />
