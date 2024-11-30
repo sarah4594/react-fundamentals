@@ -15,6 +15,17 @@ function App() {
 			 */}
 			{/* 💯 make the first option be "--Please select an option--" with a value of an empty string */}
 			<div>
+				<label htmlFor="accoutnTypeSelection">
+					<select name="accountType" id="accoutnTypeSelection">
+						<option value="">Please select an option</option>
+						<option value="admin">Admin</option>
+						<option value="teacher">Teacher</option>
+						<option value="parent">Parent</option>
+						<option value="student">Student</option>
+					</select>
+				</label>
+			</div>
+			<div>
 				<label htmlFor="usernameInput">Username:</label>
 				<input id="usernameInput" name="username" />
 			</div>
